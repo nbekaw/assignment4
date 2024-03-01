@@ -23,9 +23,11 @@ public class UserService implements UserServiceInterface {
     public User create(User user) {
         return repo.save(user);
     }
-
     @Override
-    public List<User> getByUsername(String username) {
+    public User findByUsername(String username) {
         return repo.findByUsername(username);
+    }
+    public void update(User user) {
+        repo.save(user);
     }
 }
