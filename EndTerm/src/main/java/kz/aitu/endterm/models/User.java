@@ -19,10 +19,10 @@ public class User {
 
     public void withdraw(double amount) {
         if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive");
+            throw new IllegalArgumentException("NO NEGATIVE");
         }
         if (this.balance < amount) {
-            throw new IllegalArgumentException("Insufficient balance");
+            throw new IllegalArgumentException("NOT ENOUGH");
         }
         this.balance -= amount;
     }
