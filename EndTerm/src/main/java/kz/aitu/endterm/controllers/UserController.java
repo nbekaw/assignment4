@@ -1,6 +1,7 @@
 package kz.aitu.endterm.controllers;
 
 import kz.aitu.endterm.models.User;
+import kz.aitu.endterm.models.UserLogin;
 import kz.aitu.endterm.services.UserService;
 import kz.aitu.endterm.services.interfaces.UserServiceInterface;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,7 @@ public class UserController {
         User sender = userService.findByUsername(senderUsername);
         User receiver = userService.findByUsername(ReceiverUsername);
 
-        if (sender == null || receiver == null) {
+        if (sender == null  receiver == null) {
             return new ResponseEntity<>("Sender or receiver not found", HttpStatus.NOT_FOUND);
         }
 
@@ -84,5 +85,19 @@ public class UserController {
         userService.update(user);
 
         return new ResponseEntity<>("Balance topped up successfully", HttpStatus.OK);
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserLogin userLogin) {
+        String username = userLogin.getUsername();
+        String password = userLogin.getPassword();
+
+        User user = userService.findByUsername(username);
+
+        if (user == null  !user.getPassword().equals(password)) {
+            return new ResponseEntity<>("Username or password is wrong", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>("Login successful", HttpStatus.OK);
     }
 }
