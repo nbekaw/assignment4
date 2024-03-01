@@ -67,6 +67,22 @@ public class UserController {
 
         return new ResponseEntity<>("Money transferred successfully", HttpStatus.OK);
     }
+    @PostMapping("/topUp/{username}/{amount}")
+    public ResponseEntity<String> topUpUserBalance(@PathVariable String username, @PathVariable double amount) {
+        User user = userService.findByUsername(username);
+
+        if (user == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+
+        if (amount <= 0) {
+            return new ResponseEntity<>("WRITE NORMALLY", HttpStatus.BAD_REQUEST);
+        }
+
+        user.setBalance(user.getBalance() + amount);
+
+        userService.update(user);
+
+        return new ResponseEntity<>("Balance topped up successfully", HttpStatus.OK);
+    }
 }
-
-
