@@ -48,7 +48,7 @@ public class UserController {
         User sender = userService.findByUsername(senderUsername);
         User receiver = userService.findByUsername(ReceiverUsername);
 
-        if (sender == null  receiver == null) {
+        if (sender == null || receiver == null) {
             return new ResponseEntity<>("Sender or receiver not found", HttpStatus.NOT_FOUND);
         }
 
@@ -94,7 +94,7 @@ public class UserController {
 
         User user = userService.findByUsername(username);
 
-        if (user == null  !user.getPassword().equals(password)) {
+        if (user == null || !user.getPassword().equals(password)) {
             return new ResponseEntity<>("Username or password is wrong", HttpStatus.NOT_FOUND);
         }
 
