@@ -9,5 +9,6 @@ import java.util.List;
 public interface UserServiceInterface {
     List<User> getAll();
     User create(User user);
-    List<User> getByUsername(String surname);
+    User findByUsername(String username);
+    void update(User user);
 }
